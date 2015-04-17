@@ -7,8 +7,8 @@ var application_root = __dirname,
     cookieParser = require('cookie-parser')
     bodyParser = require('body-parser');
 
-
-var webRouter = require('./routes/web_router');
+var db = require('./restful/db'),
+    apiRouter = require('./restful/api_router');
 
 var app = express();
 
@@ -26,19 +26,16 @@ app.use(bodyParser.urlencoded({
 
 app.set('port', process.env.PORT || 3050);
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
-
-app.use('/', webRouter);
+app.use('/', apiRouter);
 
 
-// app.listen(port, function(){
-//     console.log('Express server listening on port %d in %s mode',
-//         port, app.settings.env);
-// });
 
+db.connect(function(error){
+    if (error) throw error;
+});
+app.on('close', function(errno) {
+    db.disconnect(function(err) { });
+});
 
 
 

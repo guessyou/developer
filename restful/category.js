@@ -4,24 +4,31 @@
  * MIT Licensed
  */
 
-var express = require('express'),
-    router = express.Router(),
-    mongoose = require('mongoose');
+var util = require('util'),
+    express = require('express'),
+    mongoose = require('mongoose'),
+    _ = require('underscore');
 
-mongoose.connect( 'mongodb://localhost/test' );
+var Schema = mongoose.Schema;
 
-var Keywords = new mongoose.Schema({
-    keyword: String
+//定义对象模型
+var Aliases = new Schema({
+    alias: String
 });
-var Book = new mongoose.Schema({
-    title: String,
-    author: String,
-    releaseDate: Date,
-    keywords: [Keywords]
+var CategoryScheme = new Schema({
+    key: String,
+    name: String,
+    slug: String,       //分类可用于路由
+    alias: [Aliases],   //别名
+    quality: Number,    //该分类下url数量
+    rank: Number,       //排序/权重
+    icon: String,
+    _parent_id:  Schema.Types.ObjectId,
+    
+    add_time: Date,
+    last_modified: Date,
 });
-
-
-var BookModel = mongoose.model( 'Book', Book );
+var CategoryModel = mongoose.model('category', CategoryScheme);
 
 var error = function(err){
     return function(){
@@ -30,22 +37,23 @@ var error = function(err){
             return;
         }
     }
-}
-// var config = require('../config'),
-//     crypto = require('crypto'),
-//     passport = require('passport');
+};
 
-router.get('/api', function(req, res){
-    res.send('Api is running');
-});
+/*
+create
+read
+update
+delete
+readByParentId
+readAll
+**/
 
-
-router.get('/api/books', function(req, res){
+exports.getAll = function(req, res){
     return BookModel.find(function(err,books){
         error(err);
         res.send(books);
     })
-});
+};
 
 /* test
 jQuery.get('/api/books/',function(data, textStatus, jqXHR){
@@ -57,7 +65,7 @@ jQuery.get('/api/books/',function(data, textStatus, jqXHR){
 **/
 
 
-router.post('/api/books', function(req, res){
+exports.postAll = function(req, res){
     var book = new BookModel({
         title: req.body.title,
         author: req.body.author,
@@ -71,7 +79,7 @@ router.post('/api/books', function(req, res){
         
     });
     return res.send(book);
-});
+};
 
 /* test
 jQuery.post('/api/books/', {
@@ -101,13 +109,13 @@ jQuery.post('/api/books/', {
 **/
 
 
-router.get('/api/books/:id', function(req, res){
+exports.getItem = function(req, res){
     var params = req.params.id;
     return BookModel.findById(params, function(err,book){
         error(err);
         res.send(book);
     })
-});
+};
 /* test
 jQuery.get('/api/books/552c86d4a94bf75016810aea',function(data, textStatus, jqXHR){
     console.log('Get response:');
@@ -118,7 +126,7 @@ jQuery.get('/api/books/552c86d4a94bf75016810aea',function(data, textStatus, jqXH
 **/
 
 
-router.put('/api/books/:id', function(req, res){
+exports.updateItem =  function(req, res){
     console.log('    Updating Book ' + req.body.title);
     var params = req.params.id;
     return BookModel.findById(params, function(err,book){
@@ -134,7 +142,7 @@ router.put('/api/books/:id', function(req, res){
         })
         
     })
-});
+};
 /* test
 jQuery.ajax({
     url: '/api/books/552c86d4a94bf75016810aea',
@@ -154,7 +162,7 @@ jQuery.ajax({
 **/
 
 
-router.delete('/api/books/:id', function(req, res){
+exports.deleteItem = function(req, res){
     console.log('    Deleting Book with id: ' + req.params.id);
     var params = req.params.id;
     return BookModel.findById(params, function(err,book){
@@ -164,7 +172,7 @@ router.delete('/api/books/:id', function(req, res){
             return res.send('');
         })
     })
-});
+};
 /* test
 jQuery.ajax({
     url: '/api/books/552c86d4a94bf75016810aea',
@@ -183,8 +191,3 @@ jQuery.ajax({
 // router.get('/about', staticController.about);
 
 
-
-
-
-
-module.exports = router;
