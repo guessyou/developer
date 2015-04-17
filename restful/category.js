@@ -16,13 +16,13 @@ var Aliases = new Schema({
     alias: String
 });
 var CategoryScheme = new Schema({
-    key: String,
+    //key: String,
     name: String,
-    slug: String,       //分类可用于路由
     alias: [Aliases],   //别名
+    slug: String,       //分类可用于路由
+    icon: String,
     quality: Number,    //该分类下url数量
     rank: Number,       //排序/权重
-    icon: String,
     //_parent_id:  Schema.Types.ObjectId,
     
     add_time: Date,
@@ -40,8 +40,8 @@ var error = function(err){
 };
 
 /*
-getAll
 create
+getAll
 getOne
 update
 delete
