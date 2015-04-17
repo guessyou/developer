@@ -1,27 +1,26 @@
 /*!
- * nodeclub - route.js
- * Copyright(c) 2012 fengmk2 <fengmk2@gmail.com>
+ * developer
+ * Copyright(c) 2015
  * MIT Licensed
  */
 
-var express = require('express'),
-    router = express.Router(),
-    mongoose = require('mongoose');
+var util = require('util'),
+    express = require('express'),
+    mongoose = require('mongoose'),
+    _ = require('underscore');
 
-mongoose.connect( 'mongodb://localhost/developer' );
+var Schema = mongoose.Schema;
 
-var Keywords = new mongoose.Schema({
-    keyword: String
+//定义对象模型
+var TagScheme = new Schema({
+    key:String,
+    name:String,
+    alias:String,
+    
+    add_time: Date,
+    last_modified: Date,
 });
-var Book = new mongoose.Schema({
-    title: String,
-    author: String,
-    releaseDate: Date,
-    keywords: [Keywords]
-});
-
-
-var BookModel = mongoose.model( 'Book', Book );
+var TagModel = mongoose.model('tag', TagScheme);
 
 var error = function(err){
     return function(){
@@ -30,22 +29,22 @@ var error = function(err){
             return;
         }
     }
-}
-// var config = require('../config'),
-//     crypto = require('crypto'),
-//     passport = require('passport');
+};
 
-router.get('/api', function(req, res){
-    res.send('Api is running');
-});
+/*
+getAll
+create
+getOne
+update
+delete
+**/
 
-
-router.get('/api/books', function(req, res){
-    return BookModel.find(function(err,books){
+exports.getAll = function(req, res){
+    return TagModel.find(function(err,books){
         error(err);
         res.send(books);
-    })
-});
+    });
+};
 
 /* test
 jQuery.get('/api/books/',function(data, textStatus, jqXHR){
@@ -57,8 +56,8 @@ jQuery.get('/api/books/',function(data, textStatus, jqXHR){
 **/
 
 
-router.post('/api/books', function(req, res){
-    var book = new BookModel({
+exports.create = function(req, res){
+    var book = new TagModel({
         title: req.body.title,
         author: req.body.author,
         releaseDate: req.body.releaseDate,
@@ -71,7 +70,7 @@ router.post('/api/books', function(req, res){
         
     });
     return res.send(book);
-});
+};
 
 /* test
 jQuery.post('/api/books/', {
@@ -101,13 +100,13 @@ jQuery.post('/api/books/', {
 **/
 
 
-router.get('/api/books/:id', function(req, res){
+exports.getOne = function(req, res){
     var params = req.params.id;
-    return BookModel.findById(params, function(err,book){
+    return TagModel.findById(params, function(err,book){
         error(err);
         res.send(book);
     })
-});
+};
 /* test
 jQuery.get('/api/books/552c86d4a94bf75016810aea',function(data, textStatus, jqXHR){
     console.log('Get response:');
@@ -118,10 +117,10 @@ jQuery.get('/api/books/552c86d4a94bf75016810aea',function(data, textStatus, jqXH
 **/
 
 
-router.put('/api/books/:id', function(req, res){
+exports.update =  function(req, res){
     console.log('    Updating Book ' + req.body.title);
     var params = req.params.id;
-    return BookModel.findById(params, function(err,book){
+    return TagModel.findById(params, function(err,book){
         book.title = req.body.title;
         book.author = req.body.author;
         book.releaseDate = req.body.releaseDate;
@@ -134,7 +133,7 @@ router.put('/api/books/:id', function(req, res){
         })
         
     })
-});
+};
 /* test
 jQuery.ajax({
     url: '/api/books/552c86d4a94bf75016810aea',
@@ -154,17 +153,17 @@ jQuery.ajax({
 **/
 
 
-router.delete('/api/books/:id', function(req, res){
+exports.delete = function(req, res){
     console.log('    Deleting Book with id: ' + req.params.id);
     var params = req.params.id;
-    return BookModel.findById(params, function(err,book){
+    return TagModel.findById(params, function(err,book){
         return book.remove(function(err){
             error(err);
             console.log('    Book removed');
             return res.send('');
         })
     })
-});
+};
 /* test
 jQuery.ajax({
     url: '/api/books/552c86d4a94bf75016810aea',
@@ -184,7 +183,4 @@ jQuery.ajax({
 
 
 
-
-
-
-module.exports = router;
+//module.exports = router;

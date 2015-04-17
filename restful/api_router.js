@@ -36,7 +36,8 @@ Delete (delete)
 */
 var pre_path = '/api/';
 
-var routes = [{
+var routes = [
+    {
         path: 'sites',
         deal: bookmark
     },
@@ -50,19 +51,19 @@ var routes = [{
     }
 ];
 
-//书签管理-网址收藏
-router.post(  pre_path + routes[0].path,          routes[0].deal.create);
-router.get(   pre_path + routes[0].path,          routes[0].deal.getAll);
-router.get(   pre_path + routes[0].path + '/:id', routes[0].deal.getOne);
-router.put(   pre_path + routes[0].path + '/:id', routes[0].deal.update);
-router.delete(pre_path + routes[0].path + '/:id', routes[0].deal.delete);
-
 //分类管理
 router.post(  pre_path + routes[1].path,          routes[1].deal.create);
 router.get(   pre_path + routes[1].path,          routes[1].deal.getAll);
 router.get(   pre_path + routes[1].path + '/:id', routes[1].deal.getOne);
 router.put(   pre_path + routes[1].path + '/:id', routes[1].deal.update);
 router.delete(pre_path + routes[1].path + '/:id', routes[1].deal.delete);
+
+//书签管理-网址收藏
+router.post(  pre_path + routes[0].path,          routes[0].deal.create);
+router.get(   pre_path + routes[0].path,          routes[0].deal.getAll);
+router.get(   pre_path + routes[0].path + '/:id', routes[0].deal.getOne);
+router.put(   pre_path + routes[0].path + '/:id', routes[0].deal.update);
+router.delete(pre_path + routes[0].path + '/:id', routes[0].deal.delete);
 
 //标签管理
 router.post(  pre_path + routes[2].path,          routes[2].deal.create);

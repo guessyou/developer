@@ -32,12 +32,11 @@ var error = function(err){
 };
 
 /*
+getAll
 create
-read
+getOne
 update
 delete
-readByParentId
-readAll
 **/
 
 exports.getAll = function(req, res){

@@ -1,12 +1,45 @@
-<!doctype html>
-<html lang="en" data-framework="backbonejs">
-    <head>
-        <meta charset="utf-8">
-        <title>Backbone.js Library</title>
-        <link rel="stylesheet" href="css/screen.css">
-        <link rel="stylesheet" href="css/jquery-ui.css">
-    </head>
-    <body>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+  <meta name="description" content="Developer">
+  <meta name="format-detection" content="telephone=no">
+  <title>demo_Developer</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/test.css">
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+</head>
+<!-- <body class="_booting _noscript"> -->
+<body class="">
+<noscript class="_fail">Developer requires JavaScript to run.</noscript>
+<div class="_app">
+  <header class="_header">
+    <a class="_home-link"></a>
+    <a class="_menu-link"></a>
+    <form class="_search">
+      <input type="search" class="_search-input" placeholder="Search&hellip;" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="20">
+      <a class="_search-clear"></a>
+      <div class="_search-tag"></div>
+    </form>
+    <h1 class="_logo">
+      <a href="/" class="_nav-link">Developer</a>
+    </h1>
+    <nav class="_nav">
+      <a href="/offline" class="_nav-link">Offline</a>
+      <a href="/about" class="_nav-link">About</a>
+      <a href="/news" class="_nav-link">News</a>
+      <a href="/help" class="_nav-link">Tips</a>
+    </nav>
+  </header>
+  <section class="_sidebar"><div class="_list"><a href="/html/" class="_list-item _icon-html _list-dir" data-slug="html"><span class="_list-arrow"></span>HTML</a><a href="/css/" class="_list-item _icon-css _list-dir" data-slug="css"><span class="_list-arrow"></span>CSS</a><a href="/javascript/" class="_list-item _icon-javascript _list-dir" data-slug="javascript"><span class="_list-arrow"></span>JavaScript</a><a href="/program/" class="_list-item _icon-program _list-dir" data-slug="program"><span class="_list-arrow"></span>编程</a><a href="/algorithm/" class="_list-item _icon-algorithm _list-dir" data-slug="algorithm"><span class="_list-arrow"></span>算法</a><a href="/books/" class="_list-item _icon-books _list-dir" data-slug="books"><span class="_list-arrow"></span>书籍</a><a href="/tutorial/" class="_list-item _icon-tutorial _list-dir" data-slug="tutorial"><span class="_list-arrow"></span>教程</a><a href="/wheel/" class="_list-item _icon-wheel _list-dir" data-slug="wheel"><span class="_list-arrow"></span>造好的轮子</a><a href="/panning/" class="_list-item _icon-panning _list-dir" data-slug="panning"><span class="_list-arrow"></span>淘金</a><h6 class="_list-title open-title"><span class="_list-arrow"></span>Disabled (4)</h6><div class="_disabled-list"><a href="/lib/" class="_list-item _icon-lib _list-disabled" data-slug="lib"><span class="_list-enable" data-enable="lib">Enable</span>类库</a><a href="/framework/" class="_list-item _icon-framework _list-disabled" data-slug="framework"><span class="_list-enable" data-enable="framework">Enable</span>框架</a><a href="/devtool/" class="_list-item _icon-devtool _list-disabled" data-slug="devtool"><span class="_list-enable" data-enable="devtool">Enable</span>开发工具</a><a href="/design/" class="_list-item _icon-design _list-disabled" data-slug="design"><span class="_list-enable" data-enable="design">Enable</span>web 设计</a></div></div><div class="_sidebar-footer"><a class="_sidebar-footer-link _sidebar-footer-light" title="Toggle light" data-light=""></a>
+    <a class="_sidebar-footer-link _sidebar-footer-edit" data-pick-docs="">Select documentation</a></div></section>
+  
+  <section class="_container">
+    <!-- <div class="_content _content-loading"></div> -->
+    <div class="_content">
         <div id="books">
             <form action="#" id="addBook">
                 <div>
@@ -18,8 +51,6 @@
                     <button id="add">Add</button>
                 </div>
             </form>
-
-             
         </div>
         <script id="bookTemplate" type="text/template">
             <img src="<%= coverImage %>" alt=""/>
@@ -34,18 +65,86 @@
 
             <button class="delete">Delete</button>
         </script>
-        <!-- // <script src="node_modules/todomvc-common/base.js"></script> -->
-        <script src="node_modules/jquery/dist/jquery.js"></script>
-        <script src="node_modules/underscore/underscore.js"></script>
-        <script src="node_modules/backbone/backbone.js"></script>
-        <script src="node_modules/backbone.localstorage/backbone.localStorage.js"></script>
-        <script src="js/lib/dateFormat.js"></script>
-        <script src="js/lib/jquery-ui.js"></script>
-        <script src="js/models/book.js"></script>
-        <script src="js/collections/library.js"></script>
-        <script src="js/views/book.js"></script>
-        <script src="js/views/library.js"></script>
-        <!-- // <script src="js/routers/router.js"></script> -->
-        <script src="js/app.js"></script>
-    </body>
+        
+        <div class="_list-fav">
+            <ul class="nav nav-tabs nav-tabs-zen">
+                <li class="active"><a href="/list">推荐的</a></li>
+                <li><a href="/list/hottest">热门的</a></li>
+                <li><a href="/list/newest">全部的</a></li>
+            </ul>
+            <div class="list-stream">
+                <dl class="item">
+                    <dt>
+                        <i class="votes" title="赞"></i>
+                        <div class="views" title="浏览量">236<i>浏览</i></div>
+                    </dt>
+                    <dd class="summary">
+                        <h3 class="link-tit"><img class="favicon" src="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830" alt=""> <a href="http://stackoverflow.com/">Stack Overflow <small></small></a></h3>
+                        <p>Q&amp;A for professional and enthusiast programmers</p>
+                        <span class="post-tags">
+                            标签：
+                            <a href="#" rel="tag" class="">javascript</a> /
+                            <a href="#" rel="tag" class="">编程</a>
+                        </span>
+                    </dd>
+                </dl>
+                <dl class="item">
+                    <dt>
+                        <i class="votes" title="赞"></i>
+                        <div class="views" title="浏览量">236<i>浏览</i></div>
+                    </dt>
+                    <dd class="summary">
+                        <h3 class="link-tit"><img class="favicon" src="http://static.segmentfault.com/global/img/favicon.30f7204d.ico" alt=""> <a href="http://segmentfault.com/">SegmentFault <small>程序员问答</small></a></h3>
+                        <p>最前沿的技术问答，最纯粹的技术切磋。让你不知不觉中开拓眼界，提高技能。在巨人的肩膀上，成为一名优秀开发者。</p>
+                        <span class="post-tags">
+                            <a href="#" class="tag tag-sm">javascript</a>
+                            <a href="#" class="tag tag-sm">编程</a>
+                        </span>
+                    </dd>
+                </dl>
+                <dl class="item">
+                    <dt>
+                        <img src="http://placehold.it/48x48" alt="">
+                        <i class="votes" title="赞"></i>
+                        <div class="views" title="浏览量">236<i>浏览</i></div>
+                    </dt>
+                    <dd class="summary">
+                        <h3 class="link-tit"><img class="favicon" src="http://a.static.amazeui.org/favicon.png" alt=""> <a href="#">Amaze UI <small>前端框架</small></a></h3>
+                        <p>Amaze UI 是一个移动优先的跨屏前端框架。</p>
+                        <span class="post-tags">
+                            <a href="#" class="tag tag-sm">javascript</a>
+                            <a href="#" class="tag tag-sm">编程</a>
+                        </span>
+                    </dd>
+                </dl>
+            </div> <!-- //.list-stream -->
+
+            <!--<div class="text-center">
+                <ul class="pager">
+                    <li>以上是部分更新，你还可以查看</li>
+                    <li><a href="/list/newest">全部问题</a></li>
+                    <li>或者</li>
+                    <li><a href="/list/hottest">热门问题</a></li>
+                    <li>列表</li>
+                </ul>
+            </div>-->
+        </div>
+    </div>
+  </section>
+</div>
+
+</body>
+<!-- // <script src="node_modules/todomvc-common/base.js"></script> -->
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<!-- <script src="node_modules/backbone.localstorage/backbone.localStorage.js"></script> -->
+<script src="js/lib/dateFormat.js"></script>
+<script src="js/lib/jquery-ui.js"></script>
+<script src="js/models/book.js"></script>
+<script src="js/collections/library.js"></script>
+<script src="js/views/book.js"></script>
+<script src="js/views/library.js"></script>
+<!-- // <script src="js/routers/router.js"></script> -->
+<script src="js/app.js"></script>
 </html>

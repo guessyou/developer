@@ -23,7 +23,7 @@ var CategoryScheme = new Schema({
     quality: Number,    //该分类下url数量
     rank: Number,       //排序/权重
     icon: String,
-    _parent_id:  Schema.Types.ObjectId,
+    //_parent_id:  Schema.Types.ObjectId,
     
     add_time: Date,
     last_modified: Date,
@@ -40,19 +40,18 @@ var error = function(err){
 };
 
 /*
+getAll
 create
-read
+getOne
 update
 delete
-readByParentId
-readAll
 **/
 
 exports.getAll = function(req, res){
-    return BookModel.find(function(err,books){
+    return CategoryModel.find(function(err,books){
         error(err);
         res.send(books);
-    })
+    });
 };
 
 /* test
@@ -65,8 +64,8 @@ jQuery.get('/api/books/',function(data, textStatus, jqXHR){
 **/
 
 
-exports.postAll = function(req, res){
-    var book = new BookModel({
+exports.create = function(req, res){
+    var book = new CategoryModel({
         title: req.body.title,
         author: req.body.author,
         releaseDate: req.body.releaseDate,
@@ -109,9 +108,9 @@ jQuery.post('/api/books/', {
 **/
 
 
-exports.getItem = function(req, res){
+exports.getOne = function(req, res){
     var params = req.params.id;
-    return BookModel.findById(params, function(err,book){
+    return CategoryModel.findById(params, function(err,book){
         error(err);
         res.send(book);
     })
@@ -126,10 +125,10 @@ jQuery.get('/api/books/552c86d4a94bf75016810aea',function(data, textStatus, jqXH
 **/
 
 
-exports.updateItem =  function(req, res){
+exports.update =  function(req, res){
     console.log('    Updating Book ' + req.body.title);
     var params = req.params.id;
-    return BookModel.findById(params, function(err,book){
+    return CategoryModel.findById(params, function(err,book){
         book.title = req.body.title;
         book.author = req.body.author;
         book.releaseDate = req.body.releaseDate;
@@ -162,10 +161,10 @@ jQuery.ajax({
 **/
 
 
-exports.deleteItem = function(req, res){
+exports.delete = function(req, res){
     console.log('    Deleting Book with id: ' + req.params.id);
     var params = req.params.id;
-    return BookModel.findById(params, function(err,book){
+    return CategoryModel.findById(params, function(err,book){
         return book.remove(function(err){
             error(err);
             console.log('    Book removed');
@@ -191,3 +190,5 @@ jQuery.ajax({
 // router.get('/about', staticController.about);
 
 
+
+//module.exports = router;
