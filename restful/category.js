@@ -48,9 +48,9 @@ delete
 **/
 
 exports.getAll = function(req, res){
-    return CategoryModel.find(function(err,books){
+    return CategoryModel.find(function(err,category){
         error(err);
-        res.send(books);
+        res.send(category);
     });
 };
 
@@ -65,19 +65,25 @@ jQuery.get('/api/books/',function(data, textStatus, jqXHR){
 
 
 exports.create = function(req, res){
-    var book = new CategoryModel({
-        title: req.body.title,
-        author: req.body.author,
-        releaseDate: req.body.releaseDate,
-        keywords: req.body.keywords
+    var category = new CategoryModel({
+        name: req.body.name,
+        alias: req.body.alias,      //别名
+        slug: req.body.slug,        //分类可用于路由
+        icon: req.body.icon,
+        quality: req.body.quality,  //该分类下url数量
+        rank: req.body.rank,        //排序/权重
+        //_parent_id:  Schema.Types.ObjectId,
+        
+        add_time: new Date().getTime(),
+        last_modified: new Date().getTime(),
     });
 
-    book.save(function(err){
+    category.save(function(err){
         error(err);
-        console.log('    created');
+        console.log('    category created');
         
     });
-    return res.send(book);
+    return res.send(category);
 };
 
 /* test
@@ -110,9 +116,9 @@ jQuery.post('/api/books/', {
 
 exports.getOne = function(req, res){
     var params = req.params.id;
-    return CategoryModel.findById(params, function(err,book){
+    return CategoryModel.findById(params, function(err,category){
         error(err);
-        res.send(book);
+        res.send(category);
     })
 };
 /* test
@@ -126,18 +132,24 @@ jQuery.get('/api/books/552c86d4a94bf75016810aea',function(data, textStatus, jqXH
 
 
 exports.update =  function(req, res){
-    console.log('    Updating Book ' + req.body.title);
+    console.log('    Updating category ' + req.body.title);
     var params = req.params.id;
-    return CategoryModel.findById(params, function(err,book){
-        book.title = req.body.title;
-        book.author = req.body.author;
-        book.releaseDate = req.body.releaseDate;
-        book.keywords = req.body.keywords;
+    return CategoryModel.findById(params, function(err,category){
+        category.name = req.body.name,
+        category.alias = req.body.alias,      //别名
+        category.slug = req.body.slug,        //分类可用于路由
+        category.icon = req.body.icon,
+        //category.quality = req.body.quality,  //该分类下url数量
+        category.rank = req.body.rank,        //排序/权重
+        //_parent_id:  Schema.Types.ObjectId,
+        
+        //category.add_time = new Date().getTime(),
+        category.last_modified = new Date().getTime(),
 
-        return book.save(function(err){
+        return category.save(function(err){
             error(err);
-            console.log('book updated');
-            return res.send(book);
+            console.log('category updated');
+            return res.send(category);
         })
         
     })
@@ -162,12 +174,12 @@ jQuery.ajax({
 
 
 exports.delete = function(req, res){
-    console.log('    Deleting Book with id: ' + req.params.id);
+    console.log('    Deleting category with id: ' + req.params.id);
     var params = req.params.id;
-    return CategoryModel.findById(params, function(err,book){
-        return book.remove(function(err){
+    return CategoryModel.findById(params, function(err,category){
+        return category.remove(function(err){
             error(err);
-            console.log('    Book removed');
+            console.log('    category removed');
             return res.send('');
         })
     })

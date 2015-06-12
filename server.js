@@ -33,6 +33,7 @@ app.use('/', apiRouter);
 db.connect(function(error){
     if (error) throw error;
 });
+
 app.on('close', function(errno) {
     db.disconnect(function(err) { });
 });
