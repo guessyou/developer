@@ -24,7 +24,7 @@ var CategoryScheme = new Schema({
     quality: Number,    //该分类下url数量
     rank: Number,       //排序/权重
     //_parent_id:  Schema.Types.ObjectId,
-    
+
     add_time: Date,
     last_modified: Date,
 });
@@ -73,16 +73,16 @@ exports.create = function(req, res){
         quality: req.body.quality,  //该分类下url数量
         rank: req.body.rank,        //排序/权重
         //_parent_id:  Schema.Types.ObjectId,
-        
+
         add_time: new Date().getTime(),
         last_modified: new Date().getTime(),
     });
 
-    category.save(function(err){
-        error(err);
-        console.log('    category created');
-        
-    });
+      category.save(function(err){
+          error(err);
+          console.log('    category created');
+
+      });
     return res.send(category);
 };
 
@@ -142,16 +142,16 @@ exports.update =  function(req, res){
         //category.quality = req.body.quality,  //该分类下url数量
         category.rank = req.body.rank,        //排序/权重
         //_parent_id:  Schema.Types.ObjectId,
-        
+
         //category.add_time = new Date().getTime(),
         category.last_modified = new Date().getTime(),
 
-        return category.save(function(err){
+        category.save(function(err){
             error(err);
             console.log('category updated');
             return res.send(category);
         })
-        
+
     })
 };
 /* test

@@ -7,8 +7,8 @@ var application_root = __dirname,
     cookieParser = require('cookie-parser')
     bodyParser = require('body-parser');
 
-var db = require('./restful/db'),
-    apiRouter = require('./restful/api_router');
+var db = require('./restful/db');
+var apiRouter = require('./restful/api_router');
 
 var app = express();
 
